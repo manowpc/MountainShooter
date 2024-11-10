@@ -29,6 +29,7 @@ class Menu:
                     self.menu_text(20, MENU_OPTION[i], C_YELLOW, ((WIN_WIDTH / 2), 200 + 25 * i))
                 else:
                     self.menu_text(20, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i))
+            self.display_name("Lucas Anderson Medeiros Celestino, RU: 4888633", 10, C_WHITE, (WIN_WIDTH - 10,20))
             pygame.display.flip()
 
             # Check for all events
@@ -55,3 +56,9 @@ class Menu:
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)
+
+    def display_name(self, text: str, text_size: int, text_color: tuple, position: tuple):
+        text_font = pygame.font.SysFont("Lucida Sans Typewriter", text_size)
+        text_surf = text_font.render(text, True, text_color).convert_alpha()
+        text_rect = text_surf.get_rect(bottomright=position)
+        self.window.blit(text_surf, text_rect)

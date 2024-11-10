@@ -3,15 +3,30 @@
 from code.Const import ENTITY_SPEED, ENTITY_SHOT_DELAY
 from code.EnemyShot import EnemyShot
 from code.Entity import Entity
-
+from code.Const import WIN_HEIGHT
 
 class Enemy(Entity):
     def __init__(self, name: str, position: tuple):
         super().__init__(name, position)
         self.shot_delay = ENTITY_SHOT_DELAY[self.name]
+        self.moving_up = True
+        self.speed_up = ENTITY_SPEED[self.name]
+        self.speed_down = 2 * self.speed_up
 
     def move(self):
         self.rect.centerx -= ENTITY_SPEED[self.name]
+        if self.name == "Enemy3":
+            if self.moving_up:
+                self.rect.centery -= self.speed_up
+                if self.rect.top <= 0:
+                    self.moving_up = False
+            else:
+                self.rect.centery += self.speed_down
+                if self.rect.bottom >= WIN_HEIGHT:
+                    self.moving_up = True
+        else:
+
+            self.rect.centerx -= ENTITY_SPEED[self.name]
 
     def shoot(self):
         self.shot_delay -= 1
